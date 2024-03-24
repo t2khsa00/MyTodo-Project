@@ -1,0 +1,15 @@
+### Get Task
+
+GET http://localhost:3001/
+
+### Create New Task
+POST http://localhost:3001/new HTTP/1.1
+Content-Type: application/json
+
+
+{
+  "description": "This is the test from Rest Client"
+}
+
+### Delete Task
+DELETE http://localhost:3001/1 HTTP/1.1
