@@ -1,9 +1,10 @@
 h3 {
-    font-size: 30px; 
+    font-size: 36px; 
     color: #007bff; 
     text-align: center;
-    margin: 15px 0;
+    margin: 20px 0;
     font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 p {
@@ -12,12 +13,13 @@ p {
 
 form {
     margin-bottom: 20px;
-    padding: 8px;
-    border: 1px solid #dfe1e5;
-    border-radius: 16px; 
+    padding: 12px;
+    border: 2px solid #007bff;
+    border-radius: 20px; 
     background-color: #f1f3f4;
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 form input[type="text"] {
@@ -25,16 +27,18 @@ form input[type="text"] {
     border: none;
     outline: none;
     background: none;
-    font-size: 14px;
+    font-size: 16px;
+    padding: 10px;
+    color: #333;
 }
 
 form input[type="submit"] {
     background-color: #007bff;
     color: #fff;
     border: none;
-    border-radius: 4px;
-    padding: 6px 12px; 
-    margin-left: 8px;
+    border-radius: 20px;
+    padding: 10px 20px; 
+    margin-left: 12px;
     cursor: pointer;
     transition: background-color 0.3s;
 }

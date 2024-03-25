@@ -8,48 +8,50 @@ class MyToDo {
         this.#backend_url = url;
     }
 
-    getTasks = () => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const response = await fetch(this.#backend_url);
-                const json = await response.json();
+    getTasks = async () => {
+        return new Promise(async(resolve, reject) => {
+            fetch(this.#backend_url)
+            .then((response) => response.json())
+            .then((json) => {
                 this.#readJson(json);
                 resolve(this.#task);
-            } catch(error) {
+            }, (error) => {
                 reject(error);
-            }
+            });
+        });
+       
+    }
+
+    addTask = async (text) => {
+        return new Promise(async(resolve, reject) => {
+            fetch(this.#backend_url + '/new', {
+                method: 'post',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({description: text})
+            })
+            .then((response) => response.json())
+            .then((json) => {
+                resolve(this.#addToArray(json.id, text));
+            }, (error) => {
+                reject(error);
+            });
         });
     }
-    addTask = (text) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const json = JSON.stringify({description: text});
-                const response = await fetch(this.#backend_url + '/new', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: json
-                });
-                const task = await response.json();
-                const newTask = this.#addToArray(task.id,text);
-                resolve(newTask);
-            } catch(error) {
-                reject(error);
-            }
-        });
-    }
-    removeTask = (id) => {
-        return new Promise(async (resolve, reject) => {
-            try {
-                const response = await fetch(this.#backend_url + '/delete/' + id, {
-                    method: 'DELETE'
-                });
+
+   removeTask = async (id) => {
+        return new Promise(async(resolve, reject) => {
+            fetch(this.#backend_url + '/delete/' + id, {
+                method: 'delete'
+            })
+            .then((response) => response.json())
+            .then((json) => {
                 this.#removeFromArray(id);
-                resolve();
-            } catch(error) {
+                resolve(json.id);
+            }, (error) => {
                 reject(error);
-            }
+            });
         });
     }
 
@@ -65,8 +67,7 @@ class MyToDo {
         return task
     }
     #removeFromArray = (id) => {
-        const arrayWithoutRemoved = this.#task.filter(task => task.getId() !== id);
-        this.#task = arrayWithoutRemoved;
+        this.#task = this.#task.filter(task => task.id !== id);
     }
 }
 
