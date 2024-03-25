@@ -51,17 +51,6 @@ const deleteTask = async (taskId) => {
     }
 };
 
-const getTasks = () => {
-    MyToDoInstance.getTasks().then((tasks) => {
-        tasks.forEach(task => {
-            renderTask(task)
-        });
-    }).catch((error) => {
-        console.log("Error getting tasks from the server", error);
-        alert('Failed to fetch tasks: ' + error.message);
-    });
-};
-
 const getTask = async () => {
     try {
         const response = await fetch(BACKEND_ROOT_URL);
@@ -86,7 +75,9 @@ const saveTask = async (task) => {
             },
             body: json
         });
-        return response.json();
+        const result = await response.json();
+        input.value = ''
+        return result;
     } catch (error) {
         console.log("Error saving task to the server", error);
         alert('Failed to save task: ' + error.message);

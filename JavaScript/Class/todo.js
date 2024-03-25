@@ -55,8 +55,8 @@ class MyToDo {
 
     #readJson = (taskAsJson) => {
         taskAsJson.forEach(node => {
-            const task = new tasks(node.id, node.description); // Create new task object
-            this.#task.push(task); // Push the task object to the array
+            const task = new tasks(node.id, node.description);
+            this.#task.push(task);
         });
     }
     #addToArray = (id,text) => {
